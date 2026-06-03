@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Perbandingan Kosmik + Neptu Weton</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .input-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .input-field label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .input-field input, .input-field select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-field input:focus, .input-field select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-add {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-add:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-compare {
+            background: #667eea;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .btn-compare:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-remove {
+            background: #ef4444;
+            color: white;
+            padding: 12px 15px;
+        }
+
+        .btn-remove:hover {
+            background: #dc2626;
+        }
+
+        .entries-list {
+            margin: 20px 0;
+        }
+
+        .entry-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .entry-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .entry-date {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .row-header {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-weight: 600;
+            color: #667eea;
+            white-space: nowrap;
+            width: 250px;
+        }
+
+        .zodiac-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .zodiac-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 10px;
+            background: #f3f4f6;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .zodiac-item i {
+            font-size: 1.2em;
+        }
+
+        .fa-sun { color: #f59e0b; }
+        .fa-moon { color: #6366f1; }
+        .fa-star { color: #ec4899; }
+        .fa-earth-americas { color: #10b981; }
+        .fa-fire { color: #ef4444; }
+        .fa-droplet { color: #3b82f6; }
+        .fa-wind { color: #8b5cf6; }
+        .fa-mountain-sun { color: #84cc16; }
+
+        .dragon-icon { color: #dc2626; }
+        .horse-icon { color: #f59e0b; }
+        .sheep-icon { color: #10b981; }
+        .monkey-icon { color: #6366f1; }
+        .rooster-icon { color: #ec4899; }
+        .dog-icon { color: #8b5cf6; }
+        .pig-icon { color: #f472b6; }
+        .rat-icon { color: #6b7280; }
+        .ox-icon { color: #92400e; }
+        .tiger-icon { color: #fb923c; }
+        .rabbit-icon { color: #34d399; }
+        .snake-icon { color: #a78bfa; }
+
+        .neptu-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .comparison-content {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .comparison-content strong {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .input-field {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fa-solid fa-star"></i> Tabel Perbandingan Kosmik</h1>
+        <p class="subtitle">Lengkap + Neptu Weton & Astrologi</p>
+
+        <div class="input-section">
+            <h3 style="margin-bottom: 15px; color: #667eea;">
+                <i class="fa-solid fa-calendar-plus"></i> Tambah Data Kelahiran
+            </h3>
+            
+            <div class="input-group">
+                <div class="input-field">
+                    <label><i class="fa-solid fa-calendar-day"></i> Tanggal Lahir</label>
+                    <input type="number" id="tanggal" min="1" max="31" placeholder="Tanggal">
+                </div>
+                
+                <div class="input-field">
+                    <label><i class="fa-solid fa-calendar"></i> Bulan Lahir</label>
+                    <select id="bulan">
+                        <option value="1">Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                    </select>
+                </div>
+                
+                <div class="input-field">
+                    <label><i class="fa-solid fa-clock"></i> Tahun Lahir</label>
+                    <input type="number" id="tahun" min="1900" max="2100" placeholder="Tahun">
+                </div>
+                
+                <div class="input-field">
+                    <label>&nbsp;</label>
+                    <button class="btn btn-add" onclick="tambahEntri()">
+                        <i class="fa-solid fa-plus"></i> Tambah
+                    </button>
+                    <button class="btn btn-compare" onclick="bandingkan()">
+                        <i class="fa-solid fa-code-compare"></i> Compare
+                    </button>
+                </div>
+            </div>
+
+            <div class="entries-list" id="entriesList"></div>
+        </div>
+
+        <div id="tableContainer" class="table-container hidden">
+            <table id="comparisonTable">
+                <thead>
+                    <tr id="tableHeader">
+                        <th>Aspek</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let entries = [];
+        let entryCount = 0;
+
+        // Data Neptu
+        const neptuHari = {
+            0: { nama: 'Minggu', nilai: 5 },
+            1: { nama: 'Senin', nilai: 4 },
+            2: { nama: 'Selasa', nilai: 3 },
+            3: { nama: 'Rabu', nilai: 7 },
+            4: { nama: 'Kamis', nilai: 8 },
+            5: { nama: 'Jumat', nilai: 6 },
+            6: { nama: 'Sabtu', nilai: 9 }
+        };
+
+        const neptuPasaran = [
+            { nama: 'Legi', nilai: 5 },
+            { nama: 'Pahing', nilai: 9 },
+            { nama: 'Pon', nilai: 7 },
+            { nama: 'Wage', nilai: 4 },
+            { nama: 'Kliwon', nilai: 8 }
+        ];
+
+        // Zodiak Barat
+        const zodiakBarat = [
+            { nama: 'Capricorn', awal: '12-22', akhir: '01-19', icon: 'fa-mountain-sun', elemen: 'Tanah', planet: 'Saturnus' },
+            { nama: 'Aquarius', awal: '01-20', akhir: '02-18', icon: 'fa-droplet', elemen: 'Udara', planet: 'Uranus' },
+            { nama: 'Pisces', awal: '02-19', akhir: '03-20', icon: 'fa-fish', elemen: 'Air', planet: 'Neptunus' },
+            { nama: 'Aries', awal: '03-21', akhir: '04-19', icon: 'fa-fire', elemen: 'Api', planet: 'Mars' },
+            { nama: 'Taurus', awal: '04-20', akhir: '05-20', icon: 'fa-earth-americas', elemen: 'Tanah', planet: 'Venus' },
+            { nama: 'Gemini', awal: '05-21', akhir: '06-20', icon: 'fa-wind', elemen: 'Udara', planet: 'Merkurius' },
+            { nama: 'Cancer', awal: '06-21', akhir: '07-22', icon: 'fa-moon', elemen: 'Air', planet: 'Bulan' },
+            { nama: 'Leo', awal: '07-23', akhir: '08-22', icon: 'fa-sun', elemen: 'Api', planet: 'Matahari' },
+            { nama: 'Virgo', awal: '08-23', akhir: '09-22', icon: 'fa-star', elemen: 'Tanah', planet: 'Merkurius' },
+            { nama: 'Libra', awal: '09-23', akhir: '10-22', icon: 'fa-scale-balanced', elemen: 'Udara', planet: 'Venus' },
+            { nama: 'Scorpio', awal: '10-23', akhir: '11-21', icon: 'fa-scorpion', elemen: 'Air', planet: 'Pluto' },
+            { nama: 'Sagittarius', awal: '11-22', akhir: '12-21', icon: 'fa-bullseye', elemen: 'Api', planet: 'Jupiter' }
+        ];
+
+        // Shio Cina
+        const shioCina = [
+            { nama: 'Tikus', icon: 'rat-icon', elemen: 'Air' },
+            { nama: 'Kerbau', icon: 'ox-icon', elemen: 'Tanah' },
+            { nama: 'Macan', icon: 'tiger-icon', elemen: 'Kayu' },
+            { nama: 'Kelinci', icon: 'rabbit-icon', elemen: 'Kayu' },
+            { nama: 'Naga', icon: 'dragon-icon', elemen: 'Tanah' },
+            { nama: 'Ular', icon: 'snake-icon', elemen: 'Api' },
+            { nama: 'Kuda', icon: 'horse-icon', elemen: 'Api' },
+            { nama: 'Kambing', icon: 'sheep-icon', elemen: 'Tanah' },
+            { nama: 'Monyet', icon: 'monkey-icon', elemen: 'Logam' },
+            { nama: 'Ayam', icon: 'rooster-icon', elemen: 'Logam' },
+            { nama: 'Anjing', icon: 'dog-icon', elemen: 'Tanah' },
+            { nama: 'Babi', icon: 'pig-icon', elemen: 'Air' }
+        ];
+
+        function getZodiakBarat(bulan, tanggal) {
+            const date = new Date(2000, bulan - 1, tanggal);
+            for (let z of zodiakBarat) {
+                const [awalBulan, awalTanggal] = z.awal.split('-').map(Number);
+                const [akhirBulan, akhirTanggal] = z.akhir.split('-').map(Number);
+                
+                const awal = new Date(2000, awalBulan - 1, awalTanggal);
+                const akhir = new Date(2000, akhirBulan - 1, akhirTanggal);
+                
+                if (awalBulan > akhirBulan) {
+                    if (date >= awal || date <= akhir) return z;
+                } else {
+                    if (date >= awal && date <= akhir) return z;
+                }
+            }
+            return zodiakBarat[0];
+        }
+
+        function getShioCina(tahun) {
+            const baseYear = 1900; // Tahun Tikus
+            const index = (tahun - baseYear) % 12;
+            return shioCina[index < 0 ? index + 12 : index];
+        }
+
+        function getWeton(tanggal, bulan, tahun) {
+            const date = new Date(tahun, bulan - 1, tanggal);
+            const dayIndex = date.getDay();
+            const hari = neptuHari[dayIndex];
+            
+            // Hitungan pasaran (5 hari)
+            const daysFromBase = Math.floor((date - new Date(1900, 0, 1)) / (1000 * 60 * 60 * 24));
+            const pasaranIndex = ((daysFromBase % 5) + 5) % 5;
+            const pasaran = neptuPasaran[pasaranIndex];
+            
+            const neptuTotal = hari.nilai + pasaran.nilai;
+            
+            return {
+                hari: hari.nama,
+                pasaran: pasaran.nama,
+                neptuHari: hari.nilai,
+                neptuPasaran: pasaran.nilai,
+                neptuTotal: neptuTotal
+            };
+        }
+
+        function tambahEntri() {
+            const tanggal = parseInt(document.getElementById('tanggal').value);
+            const bulan = parseInt(document.getElementById('bulan').value);
+            const tahun = parseInt(document.getElementById('tahun').value);
+
+            if (!tanggal || !bulan || !tahun) {
+                alert('Mohon lengkapi semua field!');
+                return;
+            }
+
+            entryCount++;
+            const weton = getWeton(tanggal, bulan, tahun);
+            const zodiak = getZodiakBarat(bulan, tanggal);
+            const shio = getShioCina(tahun);
+
+            entries.push({
+                id: entryCount,
+                tanggal,
+                bulan,
+                tahun,
+                weton,
+                zodiak,
+                shio
+            });
+
+            updateEntriesList();
+            
+            // Reset form
+            document.getElementById('tanggal').value = '';
+            document.getElementById('tahun').value = '';
+        }
+
+        function hapusEntri(id) {
+            entries = entries.filter(e => e.id !== id);
+            updateEntriesList();
+        }
+
+        function updateEntriesList() {
+            const list = document.getElementById('entriesList');
+            if (entries.length === 0) {
+                list.innerHTML = '';
+                return;
+            }
+
+            list.innerHTML = '<h4 style="margin: 15px 0 10px; color: #333;">Data yang ditambahkan:</h4>';
+            
+            entries.forEach(entry => {
+                const div = document.createElement('div');
+                div.className = 'entry-item';
+                div.innerHTML = `
+                    <div class="entry-info">
+                        <span class="entry-date">
+                            ${entry.tanggal}/${entry.bulan}/${entry.tahun}
+                        </span>
+                        <span><i class="fa-solid fa-calendar-week"></i> ${entry.weton.hari} ${entry.weton.pasaran}</span>
+                        <span class="neptu-badge">Neptu: ${entry.weton.neptuTotal}</span>
+                        <span><i class="fa-solid fa-${entry.zodiak.icon}"></i> ${entry.zodiak.nama}</span>
+                        <span><i class="fa-solid fa-dragon ${entry.shio.icon}"></i> ${entry.shio.nama}</span>
+                    </div>
+                    <button class="btn btn-remove" onclick="hapusEntri(${entry.id})">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function bandingkan() {
+            if (entries.length < 1) {
+                alert('Tambahkan minimal 1 data untuk compare!');
+                return;
+            }
+
+            const tableContainer = document.getElementById('tableContainer');
+            const tableHeader = document.getElementById('tableHeader');
+            const tableBody = document.getElementById('tableBody');
+
+            // Build header
+            tableHeader.innerHTML = '<th>Aspek</th>';
+            entries.forEach(entry => {
+                tableHeader.innerHTML += `
+                    <th>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.2em; margin-bottom: 10px;">
+                                ${entry.tanggal}/${entry.bulan}/${entry.tahun}
+                            </div>
+                            <div class="zodiac-info">
+                                <div class="zodiac-item">
+                                    <i class="fa-solid fa-${entry.zodiak.icon}"></i>
+                                    <span>${entry.zodiak.nama}</span>
+                                </div>
+                                <div class="zodiac-item">
+                                    <i class="fa-solid fa-dragon ${entry.shio.icon}"></i>
+                                    <span>${entry.shio.nama}</span>
+                                </div>
+                                <div class="zodiac-item">
+                                    <i class="fa-solid fa-calendar-day"></i>
+                                    <span>${entry.weton.hari} ${entry.weton.pasaran}</span>
+                                </div>
+                                <div class="neptu-badge">Neptu: ${entry.weton.neptuTotal}</div>
+                            </div>
+                        </div>
+                    </th>
+                `;
+            });
+
+            // Build rows
+            const rows = generateComparisonRows();
+            tableBody.innerHTML = rows;
+
+            tableContainer.classList.remove('hidden');
+            tableContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateComparisonRows() {
+            const aspects = [
+                {
+                    id: 0,
+                    nama: 'Esensi Neptu',
+                    icon: 'fa-star',
+                    getContent: (e) => getEsensiNeptu(e)
+                },
+                {
+                    id: 1,
+                    nama: 'Peran Utama',
+                    icon: 'fa-user-tie',
+                    getContent: (e) => getPeranUtama(e)
+                },
+                {
+                    id: 2,
+                    nama: 'Kecocokan Tinggi (Chemistry)',
+                    icon: 'fa-heart',
+                    getContent: (e) => getKecocokanTinggi(e)
+                },
+                {
+                    id: 3,
+                    nama: 'Potensi Gesekan Konflik',
+                    icon: 'fa-bolt',
+                    getContent: (e) => getPotensiKonflik(e)
+                },
+                {
+                    id: 4,
+                    nama: 'Sifat Alami Hubungan',
+                    icon: 'fa-handshake',
+                    getContent: (e) => getSifatHubungan(e)
+                },
+                {
+                    id: 5,
+                    nama: 'Dinamika Hubungan',
+                    icon: 'fa-people-arrows',
+                    getContent: (e) => getDinamikaHubungan(e)
+                },
+                {
+                    id: 6,
+                    nama: 'Bisnis Hubungan 💼',
+                    icon: 'fa-briefcase',
+                    getContent: (e) => getBisnisHubungan(e)
+                },
+                {
+                    id: '6a',
+                    nama: 'Gabungan Bisnis',
+                    icon: 'fa-chart-line',
+                    getContent: (e) => getGabunganBisnis(e)
+                },
+                {
+                    id: 7,
+                    nama: 'Karakteristik',
+                    icon: 'fa-fingerprint',
+                    getContent: (e) => getKarakteristik(e)
+                },
+                {
+                    id: 8,
+                    nama: 'Keuntungan',
+                    icon: 'fa-thumbs-up',
+                    getContent: (e) => getKeuntungan(e)
+                },
+                {
+                    id: 9,
+                    nama: 'Kelemahan',
+                    icon: 'fa-triangle-exclamation',
+                    getContent: (e) => getKelemahan(e)
+                },
+                {
+                    id: 10,
+                    nama: 'Cara Menambal Kekurangan',
+                    icon: 'fa-toolbox',
+                    getContent: (e) => getCaraMenambal(e)
+                }
+            ];
+
+            let html = '';
+            aspects.forEach(aspect => {
+                html += `<tr><td class="row-header">
+                    <i class="fa-solid ${aspect.icon}"></i> ${aspect.id}. ${aspect.nama}
+                </td>`;
+                
+                entries.forEach(entry => {
+                    html += `<td class="comparison-content">${aspect.getContent(entry)}</td>`;
+                });
+                
+                html += '</tr>';
+            });
+
+            return html;
+        }
+
+        // Fungsi-fungsi konten berdasarkan data
+        function getEsensiNeptu(e) {
+            const esensi = {
+                5: 'Minggu Legi: Wibawa dan keteduhan. Humble confidence, mandiri, pantang menyusahkan orang.',
+                6: 'Minggu Pahing: Pemimpin spiritual. Kekuatan diam yang besar.',
+                7: 'Minggu Pon: Intuitif dan visioner. Kemampuan membaca situasi.',
+                8: 'Minggu Wage: Strategis dan kalkulatif. Perencanaan matang.',
+                9: 'Minggu Kliwon: Karismatik dan berwibawa. Natural leader.',
+                10: 'Senin Legi: Lembut tapi tegas. Harmoni dan keseimbangan.',
+                11: 'Senin Pahing: Protektif dan loyal. Penjaga nilai-nilai.',
+                12: 'Senin Pon: Diplomatis dan adaptif. Mudah bergaul.',
+                13: 'Senin Wage: Analitis dan detail. Problem solver.',
+                14: 'Senin Kliwon: Visioner dan inspiratif. Pemimpi besar.',
+                15: 'Selasa Legi: Energik dan bersemangat. Action oriented.',
+                16: 'Selasa Pahing: Berani dan tegas. Pejuang sejati.',
+                17: 'Selasa Pon: Kompetitif dan ambisius. Goal getter.',
+                18: 'Selasa Wage: Strategis dalam aksi. Taktis dan cerdik.',
+                19: 'Selasa Kliwon: Leader yang decisif. Pengambil keputusan.',
+                20: 'Rabu Legi: Komunikatif dan ekspresif. Public speaker.',
+                21: 'Rabu Pahing: Intelektual dan analitis. Pemikir mendalam.',
+                22: 'Rabu Pon: Inovatif dan kreatif. Idea generator.',
+                23: 'Rabu Wage: Adaptable dan versatile. Multi-tasking.',
+                24: 'Rabu Kliwon: Transformative dan powerful. Change maker.',
+                25: 'Kamis Legi: Bijaksana dan stabil. Advisor handal.',
+                26: 'Kamis Pahing: Ambisius dan materialistis. Success driven.',
+                27: 'Kamis Pon: Ekspansif dan optimis. Growth minded.',
+                28: 'Kamis Wage: Praktis dan realistis. Grounded thinking.',
+                29: 'Kamis Kliwon: Powerful dan influential. Game changer.',
+                30: 'Jumat Legi: Harmonis dan estetis. Beauty lover.',
+                31: 'Jumat Pahing: Passionate dan intens. Deep feeler.',
+                32: 'Jumat Pon: Charming dan persuasif. People person.',
+                33: 'Jumat Wage: Sensual dan appreciative. Life enjoyer.',
+                34: 'Jumat Kliwon: Magnetis dan karismatik. Heart stealer.',
+                35: 'Sabtu Legi: Disiplin dan bertanggung jawab. Reliable.',
+                36: 'Sabtu Pahing: Intens dan transformative. Deep thinker.',
+                37: 'Sabtu Pon: Visioner dan idealis. Dream builder.',
+                38: 'Sabtu Wage: Analitis dan sistematis. Structure creator.',
+                39: 'Sabtu Kliwon: Wise dan authoritative. Master planner.'
+            };
+            return esensi[e.weton.neptuTotal] || 'Unik dan spesial';
+        }
+
+        function getPeranUtama(e) {
+            const z = e.zodiak.nama;
+            const s = e.shio.nama;
+            return `<strong>${z} + ${s}:</strong> Kombinasi ${z} yang ${getZodiakSifat(z)} dengan karakter ${s} yang ${getShioSifat(s)}. Neptu ${e.weton.neptuTotal} memberikan energi ${getNeptuEnergi(e.weton.neptuTotal)}.`;
+        }
+
+        function getZodiakSifat(z) {
+            const sifat = {
+                'Aries': 'berani dan pionir',
+                'Taurus': 'stabil dan praktis',
+                'Gemini': 'komunikatif dan adaptif',
+                'Cancer': 'intuitif dan protektif',
+                'Leo': 'karismatik dan leadership',
+                'Virgo': 'analitis dan detail',
+                'Libra': 'harmonis dan diplomatis',
+                'Scorpio': 'intens dan transformative',
+                'Sagittarius': 'optimis dan adventurous',
+                'Capricorn': 'ambisius dan disiplin',
+                'Aquarius': 'inovatif dan independen',
+                'Pisces': 'intuitif dan empatik'
+            };
+            return sifat[z] || 'unik';
+        }
+
+        function getShioSifat(s) {
+            const sifat = {
+                'Tikus': 'cerdik dan resourceful',
+                'Kerbau': 'kuat dan reliable',
+                'Macan': 'berani dan confident',
+                'Kelinci': 'graceful dan diplomatic',
+                'Naga': 'powerful dan lucky',
+                'Ular': 'wise dan mysterious',
+                'Kuda': 'energetic dan independent',
+                'Kambing': 'gentle dan creative',
+                'Monyet': 'clever dan playful',
+                'Ayam': 'observant dan hardworking',
+                'Anjing': 'loyal dan honest',
+                'Babi': 'generous dan compassionate'
+            };
+            return sifat[s] || 'spesial';
+        }
+
+        function getNeptuEnergi(n) {
+            if (n <= 10) return 'stabil dan grounding';
+            if (n <= 15) return 'balanced dan harmonis';
+            if (n <= 20) return 'dinamis dan aktif';
+            if (n <= 25) return 'intens dan powerful';
+            return 'transformative dan visionary';
+        }
+
+        function getKecocokanTinggi(e) {
+            const z = e.zodiak.nama;
+            const compatible = {
+                'Aries': 'Leo, Sagittarius, Gemini',
+                'Taurus': 'Virgo, Capricorn, Cancer',
+                'Gemini': 'Libra, Aquarius, Aries',
+                'Cancer': 'Scorpio, Pisces, Taurus',
+                'Leo': 'Aries, Sagittarius, Libra',
+                'Virgo': 'Taurus, Capricorn, Cancer',
+                'Libra': 'Gemini, Aquarius, Leo',
+                'Scorpio': 'Cancer, Pisces, Virgo',
+                'Sagittarius': 'Aries, Leo, Gemini',
+                'Capricorn': 'Taurus, Virgo, Scorpio',
+                'Aquarius': 'Gemini, Libra, Sagittarius',
+                'Pisces': 'Cancer, Scorpio, Taurus'
+            };
+            return `Dengan zodiak: <strong>${compatible[z]}</strong>.<br>Neptu ${e.weton.neptuTotal} cocok dengan neptu yang selisih 2-4 atau jumlah 25-30.`;
+        }
+
+        function getPotensiKonflik(e) {
+            const z = e.zodiak.nama;
+            const conflict = {
+                'Aries': 'Cancer, Capricorn',
+                'Taurus': 'Leo, Aquarius',
+                'Gemini': 'Virgo, Pisces',
+                'Cancer': 'Aries, Libra',
+                'Leo': 'Scorpio, Taurus',
+                'Virgo': 'Sagittarius, Gemini',
+                'Libra': 'Capricorn, Cancer',
+                'Scorpio': 'Leo, Aquarius',
+                'Sagittarius': 'Virgo, Pisces',
+                'Capricorn': 'Aries, Libra',
+                'Aquarius': 'Taurus, Scorpio',
+                'Pisces': 'Gemini, Sagittarius'
+            };
+            return `Potensi gesekan dengan: <strong>${conflict[z]}</strong>.<br>Perlu komunikasi intensif dan saling pengertian.`;
+        }
+
+        function getSifatHubungan(e) {
+            const n = e.weton.neptuTotal;
+            if (n <= 12) return 'Cenderung stabil, loyal, dan menjaga harmoni. Hubungan dibangun dengan kesabaran dan ketulusan.';
+            if (n <= 18) return 'Dinamis dan komunikatif. Mudah beradaptasi dengan partner tapi butuh ruang gerak.';
+            if (n <= 24) return 'Intens dan passionate. Hubungan yang dalam dan transformative, tapi bisa posesif.';
+            return 'Visioner dan idealis. Mencari hubungan yang bermakna dan spiritual, butuh partner yang understanding.';
+        }
+
+        function getDinamikaHubungan(e) {
+            const z = e.zodiak;
+            return `Dengan elemen ${z.elemen} dan planet ${z.planet}, dinamika hubungan dipengaruhi oleh energi ${z.elemen.toLowerCase()} yang ${getElemenSifat(z.elemen)}.`;
+        }
+
+        function getElemenSifat(e) {
+            const sifat = {
+                'Api': 'bersemangat, energik, dan inspiratif',
+                'Tanah': 'stabil, praktis, dan reliable',
+                'Udara': 'komunikatif, intelektual, dan sosial',
+                'Air': 'emosional, intuitif, dan empatik'
+            };
+            return sifat[e] || 'unik';
+        }
+
+        function getBisnisHubungan(e) {
+            const s = e.shio;
+            const z = e.zodiak;
+            return `Kombinasi ${s.nama} (${s.elemen}) + ${z.nama} (${z.elemen}). Cocok di bidang yang menggabungkan kekuatan ${s.elemen} dan ${z.elemen}.`;
+        }
+
+        function getGabunganBisnis(e) {
+            const n = e.weton.neptuTotal;
+            if (n <= 12) return 'Bisnis stabil jangka panjang. Cocok partnership dengan yang neptu 13-16 untuk balance.';
+            if (n <= 18) return 'Bisnis dinamis dan growth-oriented. Partner ideal: neptu 10-14 atau 20-24.';
+            if (n <= 24) return 'Bisnis intensif dan transformative. Butuh partner yang supportive: neptu 8-12 atau 26-30.';
+            return 'Bisnis visioner dan inovatif. Partner cocok: yang neptu 12-18 untuk grounding.';
+        }
+
+        function getKarakteristik(e) {
+            return `<strong>${e.zodiak.nama} (${e.zodiak.elemen}):</strong> ${getZodiakDetail(e.zodiak.nama)}<br><br>
+                    <strong>${e.shio.nama}:</strong> ${getShioDetail(e.shio.nama)}<br><br>
+                    <strong>Neptu ${e.weton.neptuTotal}:</strong> ${getNeptuDetail(e.weton.neptuTotal)}`;
+        }
+
+        function getZodiakDetail(z) {
+            const detail = {
+                'Aries': 'Berani, pionir, kompetitif, impulsif, leadership natural',
+                'Taurus': 'Stabil, praktis, sensual, stubborn, reliable',
+                'Gemini': 'Komunikatif, adaptable, curious, dual nature, versatile',
+                'Cancer': 'Intuitif, protektif, emosional, nurturing, loyal',
+                'Leo': 'Karismatik, creative, confident, dramatic, generous',
+                'Virgo': 'Analitis, detail-oriented, practical, perfectionist, helpful',
+                'Libra': 'Diplomatis, harmonis, social, indecisive, fair-minded',
+                'Scorpio': 'Intens, transformative, mysterious, passionate, resourceful',
+                'Sagittarius': 'Optimis, adventurous, philosophical, restless, freedom-loving',
+                'Capricorn': 'Ambisius, disciplined, responsible, patient, goal-oriented',
+                'Aquarius': 'Innovative, independent, humanitarian, unconventional, visionary',
+                'Pisces': 'Compassionate, intuitive, artistic, dreamy, empathetic'
+            };
+            return detail[z] || 'Unik';
+        }
+
+        function getShioDetail(s) {
+            const detail = {
+                'Tikus': 'Cerdik, charming, adaptable, resourceful, quick-witted',
+                'Kerbau': 'Strong, dependable, patient, methodical, hardworking',
+                'Macan': 'Brave, confident, competitive, unpredictable, charismatic',
+                'Kelinci': 'Graceful, elegant, diplomatic, cautious, artistic',
+                'Naga': 'Powerful, lucky, ambitious, temperamental, natural leader',
+                'Ular': 'Wise, intuitive, mysterious, materialistic, deep thinker',
+                'Kuda': 'Energetic, independent, warm-hearted, impatient, free-spirited',
+                'Kambing': 'Gentle, creative, compassionate, pessimistic, artistic',
+                'Monyet': 'Clever, playful, mischievous, curious, problem solver',
+                'Ayam': 'Observant, hardworking, courageous, boastful, detail-oriented',
+                'Anjing': 'Loyal, honest, responsible, anxious, protective',
+                'Babi': 'Generous, compassionate, diligent, naive, good-natured'
+            };
+            return detail[s] || 'Spesial';
+        }
+
+        function getNeptuDetail(n) {
+            const detail = {
+                5: 'Wibawa alami, kharisma tinggi, leadership',
+                6: 'Spiritual, intuitif, visionary',
+                7: 'Strategis, kalkulatif, planner',
+                8: 'Ambisius, materialistis, success-driven',
+                9: 'Powerful, influential, transformative',
+                10: 'Harmonis, balanced, diplomatic',
+                11: 'Protektif, loyal, guardian',
+                12: 'Adaptif, komunikatif, social',
+                13: 'Analitis, detail, problem solver',
+                14: 'Visioner, inspiratif, motivator',
+                15: 'Energik, action-oriented, dynamic',
+                16: 'Berani, tegas, warrior',
+                17: 'Kompetitif, ambitious, achiever',
+                18: 'Taktis, strategic, clever',
+                19: 'Decisive, leader, commander',
+                20: 'Ekspresif, komunikatif, performer',
+                21: 'Intelektual, deep thinker, scholar',
+                22: 'Kreatif, inovatif, idea generator',
+                23: 'Versatile, adaptable, multi-tasker',
+                24: 'Powerful, transformative, change maker',
+                25: 'Bijaksana, stabil, advisor',
+                26: 'Materialistis, success-oriented, builder',
+                27: 'Optimis, ekspansif, growth minded',
+                28: 'Praktis, realistis, grounded',
+                29: 'Influential, powerful, game changer',
+                30: 'Estetis, harmonis, beauty lover',
+                31: 'Passionate, intens, deep feeler',
+                32: 'Charming, persuasif, networker',
+                33: 'Sensual, appreciative, enjoyer',
+                34: 'Magnetis, karismatik, heart stealer',
+                35: 'Disiplin, responsible, reliable',
+                36: 'Intens, transformative, deep thinker',
+                37: 'Visioner, idealis, dream builder',
+                38: 'Sistematis, analitis, organizer',
+                39: 'Wise, authoritative, master planner'
+            };
+            return detail[n] || 'Unik dan spesial';
+        }
+
+        function getKeuntungan(e) {
+            return `Kombinasi ${e.zodiak.nama} + ${e.shio.nama} dengan neptu ${e.weton.neptuTotal} memberikan keuntungan: natural leadership, adaptabilitas tinggi, dan kemampuan membaca situasi dengan baik.`;
+        }
+
+        function getKelemahan(e) {
+            const n = e.weton.neptuTotal;
+            if (n <= 12) return 'Cenderung terlalu hati-hati, kadang overthinking, butuh waktu lama untuk mengambil keputusan.';
+            if (n <= 18) return 'Bisa terlalu dinamis, kurang fokus, mudah bosan dengan rutinitas.';
+            if (n <= 24) return 'Terlalu intens, posesif, emosional, perlu belajar mengendalikan ego.';
+            return 'Terlalu idealis, visioner tapi kurang praktis, perlu grounding dengan realita.';
+        }
+
+        function getCaraMenambal(e) {
+            return `<strong>Meditasi & refleksi:</strong> Luangkan waktu untuk introspeksi.<br>
+                    <strong>Belajar dari partner:</strong> Cari partner yang melengkapi kekurangan.<br>
+                    <strong>Balance energi:</strong> Sesuaikan dengan elemen yang kurang.<br>
+                    <strong>Develop patience:</strong> Latihan kesabaran dan ketekunan.`;
+        }
+    </script>
+</body>
+</html>
