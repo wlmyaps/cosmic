@@ -1,0 +1,14 @@
+{
+  "Aries": {"planet": "Mars", "icon": "fa-aries"},
+  "Taurus": {"planet": "Venus", "icon": "fa-taurus"},
+  "Gemini": {"planet": "Merkurius", "icon": "fa-gemini"},
+  "Cancer": {"planet": "Bulan", "icon": "fa-cancer"},
+  "Leo": {"planet": "Matahari", "icon": "fa-leo"},
+  "Virgo": {"planet": "Merkurius", "icon": "fa-virgo"},
+  "Libra": {"planet": "Venus", "icon": "fa-libra"},
+  "Scorpio": {"planet": "Pluto/Mars", "icon": "fa-scorpio"},
+  "Sagitarius": {"planet": "Jupiter", "icon": "fa-sagittarius"},
+  "Capricorn": {"planet": "Saturnus", "icon": "fa-capricorn"},
+  "Aquarius": {"planet": "Uranus/Saturnus", "icon": "fa-aquarius"},
+  "Pisces": {"planet": "Neptunus/Jupiter", "icon": "fa-pisces"}
+}

@@ -1,0 +1,14 @@
+{
+  "Tikus": {"icon": "fa-rat"},
+  "Kerbau": {"icon": "fa-cow"},
+  "Macan": {"icon": "fa-tiger"},
+  "Kelinci": {"icon": "fa-rabbit"},
+  "Naga": {"icon": "fa-dragon"},
+  "Ular": {"icon": "fa-snake"},
+  "Kuda": {"icon": "fa-horse"},
+  "Kambing": {"icon": "fa-sheep"},
+  "Monyet": {"icon": "fa-monkey"},
+  "Ayam": {"icon": "fa-rooster"},
+  "Anjing": {"icon": "fa-dog"},
+  "Babi": {"icon": "fa-pig"}
+}

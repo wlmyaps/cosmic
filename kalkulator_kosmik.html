@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Perbandingan Kosmik Lengkap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #d4af37;
+            --dark-cosmic: #0a0a1a;
+            --light-cosmic: #1a1a3a;
+            --text-gold: #ffcc00;
+            --pure-white: #ffffff;
+        }
+        body {
+            background-color: var(--dark-cosmic);
+            color: var(--pure-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 1300px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .card {
+            background-color: var(--light-cosmic);
+            border: 2px solid var(--primary-gold);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+        .header-title {
+            color: var(--text-gold);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .input-section {
+            padding: 30px;
+            background: rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--primary-gold);
+        }
+        .btn-gold {
+            background-color: var(--primary-gold);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            padding: 10px 25px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .btn-gold:hover {
+            background-color: var(--text-gold);
+            transform: scale(1.05);
+            color: #000;
+        }
+        .table-responsive {
+            margin-top: 30px;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid var(--primary-gold);
+            background-color: rgba(0,0,0,0.5);
+        }
+        th, td {
+            padding: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            vertical-align: top;
+            min-width: 280px;
+            line-height: 1.6;
+            color: var(--pure-white); /* Force white text */
+            font-size: 1.05rem;
+        }
+        th:first-child, td:first-child {
+            min-width: 200px;
+            position: sticky;
+            left: 0;
+            background-color: #12122b;
+            z-index: 10;
+            color: var(--text-gold);
+            font-weight: bold;
+            border-right: 2px solid var(--primary-gold);
+        }
+        .aspect-header {
+            background-color: rgba(212, 175, 55, 0.2) !important;
+            text-align: center;
+            color: var(--text-gold) !important;
+            font-weight: 800;
+        }
+        .icon-large {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--text-gold);
+            display: block;
+        }
+        .neptu-badge {
+            background-color: var(--text-gold);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 900;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .form-label {
+            color: var(--text-gold);
+            font-weight: bold;
+        }
+        .form-control, .form-select {
+            background-color: #000;
+            color: #fff;
+            border: 1px solid var(--primary-gold);
+            font-size: 1.1rem;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #111;
+            color: #fff;
+            box-shadow: 0 0 15px var(--primary-gold);
+        }
+        b {
+            color: var(--text-gold);
+        }
+        .person-info-header {
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body p-0">
+            <h1 class="header-title">Tabel Perbandingan Kosmik Lengkap</h1>
+            
+            <div class="input-section">
+                <div id="input-container">
+                    <div class="row mb-4 align-items-end person-input">
+                        <div class="col-md-3">
+                            <label class="form-label">Tanggal Lahir</label>
+                            <select class="form-select birth-day"></select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Bulan</label>
+                            <select class="form-select birth-month">
+                                <option value="0">Januari</option><option value="1">Februari</option>
+                                <option value="2">Maret</option><option value="3">April</option>
+                                <option value="4">Mei</option><option value="5">Juni</option>
+                                <option value="6">Juli</option><option value="7">Agustus</option>
+                                <option value="8">September</option><option value="9">Oktober</option>
+                                <option value="10">November</option><option value="11">Desember</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Tahun</label>
+                            <input type="number" class="form-control birth-year" value="1994">
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-danger remove-person" style="display:none;"><i class="fas fa-trash"></i> Hapus</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-3">
+                    <button id="add-person" class="btn btn-gold"><i class="fas fa-plus"></i> Tambah Orang</button>
+                    <button id="compare-btn" class="btn btn-gold"><i class="fas fa-sync-alt"></i> Bandingkan Sekarang</button>
+                </div>
+            </div>
+
+            <div id="result-area" class="table-responsive" style="display:none;">
+                <table id="comparison-table">
+                    <thead>
+                        <tr id="header-row">
+                            <th class="aspect-header">ASPEK KOSMIK</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const DATA = {
+        neptuHari: { "Minggu": 5, "Senin": 4, "Selasa": 3, "Rabu": 7, "Kamis": 8, "Jumat": 6, "Sabtu": 9 },
+        neptuPasaran: { "Legi": 5, "Pahing": 9, "Pon": 7, "Wage": 4, "Kliwon": 8 },
+        shio: ["Monyet", "Ayam", "Anjing", "Babi", "Tikus", "Kerbau", "Macan", "Kelinci", "Naga", "Ular", "Kuda", "Kambing"],
+        shioIcons: {
+            "Tikus": "fa-mouse", "Kerbau": "fa-cow", "Macan": "fa-cat", "Kelinci": "fa-rabbit", 
+            "Naga": "fa-dragon", "Ular": "fa-staff-snake", "Kuda": "fa-horse", "Kambing": "fa-hippo", 
+            "Monyet": "fa-monkey", "Ayam": "fa-egg", "Anjing": "fa-dog", "Babi": "fa-piggy-bank"
+        },
+        elemen: ["Logam", "Logam", "Air", "Air", "Kayu", "Kayu", "Api", "Api", "Tanah", "Tanah"],
+        zodiac: [
+            { name: "Capricorn", start: [12, 22], end: [1, 19], planet: "Saturnus", icon: "fa-capricorn" },
+            { name: "Aquarius", start: [1, 20], end: [2, 18], planet: "Uranus", icon: "fa-aquarius" },
+            { name: "Pisces", start: [2, 19], end: [3, 20], planet: "Neptunus", icon: "fa-pisces" },
+            { name: "Aries", start: [3, 21], end: [4, 19], planet: "Mars", icon: "fa-aries" },
+            { name: "Taurus", start: [4, 20], end: [5, 20], planet: "Venus", icon: "fa-taurus" },
+            { name: "Gemini", start: [5, 21], end: [6, 20], planet: "Merkurius", icon: "fa-gemini" },
+            { name: "Cancer", start: [6, 21], end: [7, 22], planet: "Bulan", icon: "fa-moon" },
+            { name: "Leo", start: [7, 23], end: [8, 22], planet: "Matahari", icon: "fa-sun" },
+            { name: "Virgo", start: [8, 23], end: [9, 22], planet: "Merkurius", icon: "fa-wand-magic-sparkles" },
+            { name: "Libra", start: [9, 23], end: [10, 22], planet: "Venus", icon: "fa-scale-balanced" },
+            { name: "Scorpio", start: [10, 23], end: [11, 21], planet: "Pluto", icon: "fa-spider" },
+            { name: "Sagitarius", start: [11, 22], end: [12, 21], planet: "Jupiter", icon: "fa-arrow-trend-up" }
+        ],
+        rows: [
+            "0. Esensi Neptu", "1. Peran Utama", "2. Kecocokan Tinggi (Chemistry)", 
+            "3. Potensi Gesekan Konflik", "4. Sifat Alami Hubungan", "5. Dinamika Hubungan", 
+            "6. Bisnis Hubungan 💼", "6a. Gabungan Bisnis", "7. Karakteristik", 
+            "8. Keuntungan", "9. Kelemahan", "10. Cara Menambal Kekurangan"
+        ],
+        neptuKarakter: {
+            "7": "Sifatnya 'Pendito Kang Lelaku', senang bepergian jauh, namun sering merasa kurang puas.",
+            "8": "Sifatnya 'Kromo Lakune', senang menolong, berhati mulia, namun terkadang keras kepala.",
+            "9": "Sifatnya 'Gondol Lakune', lincah, pandai bergaul, namun sering terburu-buru.",
+            "10": "Wibawa & kesederhanaan. <b>Humble confidence</b>, mandiri, pantang menyusahkan orang. Kekuatan diam yang besar.",
+            "11": "Sifatnya 'Lakune Setan', pemberani, berjiwa pemimpin, namun sulit dinasihati.",
+            "12": "Minggu bersinar digabung Pon yang komunikatif. Pandai bicara, negosiator ulung, hangat, tapi mudah cemas.",
+            "13": "Sifatnya 'Lakune Lintang', pesonanya kuat, cerdas, namun sering merasa kesepian.",
+            "14": "Jumat penuh berkah & Kliwon berwibawa spiritual. Intuisi sangat kuat, bertuah, namun jiwa melankolis tinggi.",
+            "15": "Sifatnya 'Lakune Surya', berwibawa, menerangi sekitarnya, namun terkadang angkuh.",
+            "16": "Sifatnya 'Lakune Bumi', sabar, pengayom, murah hati, namun sulit marah.",
+            "17": "Sifatnya 'Lakune Gunung', berwibawa, pendiam, namun jika marah sangat menakutkan.",
+            "18": "Sifatnya 'Lakune Paripurna', sempurna, berwibawa tinggi, namun sering merasa sendirian."
+        }
+    };
+
+    function populateDays(select) {
+        select.innerHTML = '';
+        for (let i = 1; i <= 31; i++) {
+            let opt = document.createElement('option');
+            opt.value = i; opt.innerText = i;
+            select.appendChild(opt);
+        }
+    }
+
+    function getWeton(date) {
+        const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+        const pasaran = ["Wage", "Kliwon", "Legi", "Pahing", "Pon"];
+        const refDate = new Date(1994, 4, 15); 
+        const diffTime = date.getTime() - refDate.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        let dayIdx = (0 + (diffDays % 7) + 7) % 7;
+        let pasIdx = (3 + (diffDays % 5) + 5) % 5; 
+        return {
+            hari: days[dayIdx],
+            pasaran: pasaran[pasIdx],
+            neptu: DATA.neptuHari[days[dayIdx]] + DATA.neptuPasaran[pasaran[pasIdx]]
+        };
+    }
+
+    function getShio(date) {
+        const year = date.getFullYear();
+        const shioName = DATA.shio[year % 12];
+        const elemenName = DATA.elemen[year % 10];
+        return { name: shioName, elemen: elemenName, icon: DATA.shioIcons[shioName] || "fa-paw" };
+    }
+
+    function getZodiac(date) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        for (let z of DATA.zodiac) {
+            if ((month === z.start[0] && day >= z.start[1]) || (month === z.end[0] && day <= z.end[1])) {
+                return z;
+            }
+        }
+        return DATA.zodiac[0];
+    }
+
+    document.getElementById('add-person').addEventListener('click', () => {
+        const container = document.getElementById('input-container');
+        const firstInput = document.querySelector('.person-input');
+        const newInput = firstInput.cloneNode(true);
+        newInput.querySelector('.remove-person').style.display = 'block';
+        newInput.querySelector('.remove-person').addEventListener('click', function() {
+            this.closest('.person-input').remove();
+        });
+        container.appendChild(newInput);
+    });
+
+    document.querySelectorAll('.birth-day').forEach(populateDays);
+
+    document.getElementById('compare-btn').addEventListener('click', () => {
+        const persons = [];
+        document.querySelectorAll('.person-input').forEach(div => {
+            const d = div.querySelector('.birth-day').value;
+            const m = div.querySelector('.birth-month').value;
+            const y = div.querySelector('.birth-year').value;
+            const date = new Date(y, m, d);
+            persons.push({
+                date: date,
+                weton: getWeton(date),
+                shio: getShio(date),
+                zodiac: getZodiac(date)
+            });
+        });
+
+        const headerRow = document.getElementById('header-row');
+        const tableBody = document.getElementById('table-body');
+        headerRow.innerHTML = '<th class="aspect-header">ASPEK KOSMIK</th>';
+        tableBody.innerHTML = '';
+
+        persons.forEach(p => {
+            const th = document.createElement('th');
+            th.innerHTML = `
+                <div class="person-info-header text-center">
+                    <div style="color:#fff; font-size:0.9rem; margin-bottom:5px;">${p.date.toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</div>
+                    <i class="fas ${p.shio.icon} icon-large"></i> <b>${p.shio.name} ${p.shio.elemen}</b><br>
+                    <i class="fas ${p.zodiac.icon} icon-large"></i> <b>${p.zodiac.name}</b> (${p.zodiac.planet})<br>
+                    <div style="margin-top:10px;"><i class="fas fa-calendar-day"></i> ${p.weton.hari} ${p.weton.pasaran}</div>
+                    <span class="neptu-badge">Neptu ${p.weton.neptu}</span>
+                </div>
+            `;
+            headerRow.appendChild(th);
+        });
+
+        DATA.rows.forEach(rowTitle => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${rowTitle}</td>`;
+            persons.forEach(p => {
+                const td = document.createElement('td');
+                td.innerHTML = generateContent(rowTitle, p, persons);
+                tr.appendChild(td);
+            });
+            tableBody.appendChild(tr);
+        });
+
+        document.getElementById('result-area').style.display = 'block';
+    });
+
+    function generateContent(aspect, person, allPersons) {
+        const n = person.weton.neptu;
+        if (aspect.includes("0. Esensi Neptu")) {
+            return DATA.neptuKarakter[n] || "Karakter kuat dengan harmoni kosmik yang unik.";
+        }
+        if (aspect.includes("1. Peran Utama")) {
+            return `Penjaga stabilitas & moralis. <b>${person.shio.name} ${person.shio.elemen}</b> + <b>${person.zodiac.name}</b> + neptu <b>${n}</b> yang memegang teguh nilai. Pelabuhan aman buat semua.`;
+        }
+        if (aspect.includes("2. Kecocokan")) {
+            return `Sangat klop dengan elemen <b>${person.shio.elemen === 'Kayu' ? 'Air' : 'Tanah'}</b>. Menghargai loyalitas dan kejujuran. Menghargai kebebasan berpikir.`;
+        }
+        if (aspect.includes("3. Potensi Gesekan")) {
+            return `Keras kepala <b>${person.zodiac.name}</b> vs dominasi orang lain. Neptu <b>${n}</b> yang memendam amarah bisa meledak diam-diam.`;
+        }
+        if (aspect.includes("4. Sifat Alami")) {
+            return `Hubungan yang stabil dan setia. Ibarat akar pohon, memberi pijakan kuat bagi sekitarnya. Menjaga martabat hubungan dengan wibawa rendah hati.`;
+        }
+        if (aspect.includes("5. Dinamika")) {
+            return `Menjadi kompas moral saat terjadi benturan. Diam-diam mengingatkan lewat keteladanan. Neptu <b>${n}</b> yang mandiri kadang lupa dirinya juga butuh disokong.`;
+        }
+        if (aspect.includes("6. Bisnis")) {
+            return `Peran: Operasional, Keuangan, Layanan. Telaten, jujur, menjaga aset. Neptu <b>${n}</b> bikin dia pemimpin yang dipercaya tanpa perlu banyak perintah.`;
+        }
+        if (aspect.includes("6a. Gabungan Bisnis")) {
+            if (allPersons.length > 1) {
+                return `Kuarter ideal: Sinergi antara <b>${allPersons[0].shio.name}</b> dan <b>${allPersons[1].shio.name}</b> menciptakan alur kerja yang efisien. Pastikan komunikasi tetap terbuka.`;
+            }
+            return "Butuh data orang lain untuk melihat sinergi bisnis.";
+        }
+        if (aspect.includes("7. Karakteristik")) {
+            return `Setia, gigih, terkadang materialis (<b>${person.zodiac.name}</b>). Neptu <b>${n}</b>: mandiri, tidak suka merepotkan, sedikit tertutup.`;
+        }
+        if (aspect.includes("8. Keuntungan")) {
+            return `Memberi fondasi kokoh dan loyalitas tanpa syarat. Kehadirannya menenangkan. Memastikan semua kerja keras terarah dengan martabat.`;
+        }
+        if (aspect.includes("9. Kelemahan")) {
+            return `Enggan berubah, keras kepala, memendam masalah. Neptu <b>${n}</b>-nya yang sangat mandiri bikin susah minta tolong.`;
+        }
+        if (aspect.includes("10. Cara Menambal")) {
+            return `Belajar fleksibel, luangkan waktu refleksi. Belajar bilang <b>"tolong"</b> dan ekspresikan perasaan secara verbal.`;
+        }
+        return "Detail data sedang dalam sinkronisasi kosmik...";
+    }
+
+    populateDays(document.querySelector('.birth-day'));
+</script>
+
+</body>
+</html>
