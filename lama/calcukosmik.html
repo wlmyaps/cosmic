@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Kosmik & Dinamika Hubungan</title>
+    <style>
+        /* Gaya Dasar Elemen */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9fafb;
+            color: #374151;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #f3f4f6;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        p.desc {
+            color: #4b5563;
+            font-size: 15px;
+            margin-bottom: 24px;
+        }
+        
+        /* Area Input */
+        .input-section {
+            background-color: #f9fafb;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 30px;
+        }
+        .input-section h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        input[type="date"] {
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #374151;
+            font-size: 14px;
+            width: 100%;
+            max-width: 260px;
+            box-sizing: border-box;
+        }
+        .btn-delete {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .btn-delete:hover {
+            text-decoration: underline;
+        }
+        
+        /* Area Tombol Utama */
+        .button-group {
+            margin-top: 15px;
+            display: flex;
+            gap: 12px;
+        }
+        .btn-add {
+            background-color: #e5e7eb;
+            color: #374151;
+            border: none;
+            padding: 9px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .btn-add:hover {
+            background-color: #d1d5db;
+        }
+        .btn-submit {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 9px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Area Tabel Hasil */
+        .result-section {
+            display: none;
+            margin-top: 30px;
+        }
+        .result-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-b: 1px solid #e5e7eb;
+        }
+        .table-container {
+            overflow-x: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            min-width: 220px;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            color: #4b5563;
+        }
+        /* Kolom Pertama Tetap Diam Bergeser (Sticky Left) */
+        .sticky-col {
+            position: -webkit-sticky;
+            position: sticky;
+            left: 0;
+            background-color: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+            border-r: 1px solid #e5e7eb;
+            min-width: 180px;
+            z-index: 5;
+        }
+        tr:hover td.sticky-col {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Analisis Kosmik & Dinamika Hubungan</h1>
+        <p class="desc">Masukkan beberapa tanggal lahir untuk melihat perbandingan peran, kecocokan, potensi konflik, dan sifat alami mereka dalam sebuah grup.</p>
+
+        <div class="input-section">
+            <h2>Daftar Tanggal Lahir</h2>
+            <div id="inputContainer">
+                <div class="input-row">
+                    <input type="date" required value="1977-10-28">
+                    <button type="button" class="btn-delete" onclick="hapusInput(this)">Hapus</button>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button type="button" class="btn-add" onclick="tambahInput()">+ Tambah Tanggal</button>
+                <button type="button" class="btn-submit" onclick="prosesBandingkan()">Bandingkan Kosmik</button>
+            </div>
+        </div>
+
+        <div id="resultArea" class="result-section">
+            <div class="result-title">Tabel Perbandingan Kosmik & Dinamika Hubungan</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr id="tableHeader">
+                            <th class="sticky-col">Karakteristik Kosmik</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="rowPeran">
+                            <td class="sticky-col">Peran Utama dalam Grup</td>
+                        </tr>
+                        <tr id="rowKecocokan">
+                            <td class="sticky-col">Kecocokan Tertinggi (Chemistry)</td>
+                        </tr>
+                        <tr id="rowKonflik">
+                            <td class="sticky-col">Potensi Gesekan (Konflik)</td>
+                        </tr>
+                        <tr id="rowSifat">
+                            <td class="sticky-col">Sifat Alami Hubungan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BULAN_INDO = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+
+        function tambahInput() {
+            const container = document.getElementById('inputContainer');
+            const newRow = document.createElement('div');
+            newRow.className = "input-row";
+            newRow.innerHTML = `
+                <input type="date" required>
+                <button type="button" class="btn-delete" onclick="hapusInput(this)">Hapus</button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        function hapusInput(btn) {
+            const rows = document.querySelectorAll('.input-row');
+            if(rows.length > 1) {
+                btn.parentElement.remove();
+            } else {
+                alert('Minimal harus menyisakan 1 kolom tanggal lahir!');
+            }
+        }
+
+        function hitungZodiak(d, m) {
+            const zodiacs = [
+                { nama: "Capricorn", m: 1, d: 20 }, { nama: "Aquarius", m: 2, d: 19 },
+                { nama: "Pisces", m: 3, d: 21 }, { nama: "Aries", m: 4, d: 20 },
+                { nama: "Taurus", m: 5, d: 21 }, { nama: "Gemini", m: 6, d: 21 },
+                { nama: "Cancer", m: 7, d: 23 }, { nama: "Leo", m: 8, d: 23 },
+                { nama: "Virgo", m: 9, d: 23 }, { nama: "Libra", m: 10, d: 23 },
+                { nama: "Scorpio", m: 11, d: 22 }, { nama: "Sagittarius", m: 12, d: 22 }
+            ];
+            if (m === 12 && d >= 22) return "Capricorn";
+            for (let i = 0; i < zodiacs.length; i++) {
+                if (m === zodiacs[i].m && d < zodiacs[i].d) return zodiacs[i-1 < 0 ? 11 : i-1].nama;
+            }
+            return zodiacs[m-1].nama;
+        }
+
+        function hitungShio(tahun) {
+            const shios = ["Monyet", "Ayam", "Anjing", "Babi", "Tikus", "Kerbau", "Macan", "Kelinci", "Naga", "Ular", "Kuda", "Kambing"];
+            return shios[tahun % 12];
+        }
+
+        function hitungWeton(tanggalObj) {
+            const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+            const pasaran = ["Legi", "Pahing", "Pon", "Wage", "Kliwon"];
+            const baseDate = new Date(1900, 0, 1);
+            const diffTime = tanggalObj - baseDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (isNaN(diffDays)) return "Tidak Valid";
+
+            const indeksHari = tanggalObj.getDay();
+            let indeksPasaran = (diffDays + 3) % 5; 
+            if (indeksPasaran < 0) indeksPasaran += 5;
+
+            return `${hari[indeksHari]} ${pasaran[indeksPasaran]}`;
+        }
+
+        function dapatkanDinamikaKosmik(zodiak) {
+            let data = { peran: "", cocok: "", konflik: "", sifat: "" };
+            if(zodiak === "Scorpio") {
+                data.peran = "<strong>Sang Jangkar & Pelindung</strong><br><br>Menjadi figur 'kakak' atau penengah yang dihormati karena aura spiritualnya paling kuat.";
+                data.cocok = "Sangat cocok dengan 15 Mei 1994 & 1 Jan 1999.<br><br>Elemen Airnya menyuburkan elemen Tanah mereka (saling setia).";
+                data.konflik = "Jika terlalu mengontrol, bisa berbenturan dengan 14 Feb 1999 yang berjiwa bebas.";
+                data.sifat = "Protektif, mendalam, dan penuh rahasia.";
+            } else if(zodiak === "Taurus") {
+                data.peran = "<strong>Sang Penjaga Kedamaian</strong><br><br>Menjadi lem perekat grup berkat sifatnya yang setia, tulus, dan anti-konflik.";
+                data.cocok = "Sangat cocok dengan 1 Jan 1999.<br><br>Sesama elemen Tanah, mereka bisa paham hanya lewat tatapan mata.";
+                data.konflik = "Jika sudah mogok atau ngambek, sulit sekali dibujuk oleh siapa pun.";
+                data.sifat = "Setia, stabil, dan menyukai kenyamanan.";
+            } else if(zodiak === "Capricorn") {
+                data.peran = "<strong>Sang Pemikir Realistis</strong><br><br>Menjadi pengatur strategi dan pembawa solusi konkret saat suasana buntu.";
+                data.cocok = "Sangat cocok dengan 15 Mei 1994 & 28 Okt 1977.<br><br>Hubungan bisnis atau kerja sama akan sangat kokoh.";
+                data.konflik = "Sifat kaku pasaran Wage-nya bisa bergesekan dengan sifat keras kepala 28 Okt 1977.";
+                data.sifat = "Disiplin, ambisius, dan sangat terstruktur.";
+            } else {
+                data.peran = "<strong>Sang Pembawa Warna</strong><br><br>Menjadi pusat perhatian yang memberikan ide-ide segar dan obrolan seru.";
+                data.cocok = "Sangat cocok dengan 15 Mei 1994.<br><br>Shio Kelinci dan Anjing adalah kombinasi harmonis alami.";
+                data.konflik = "Logikanya yang terlalu cuek kadang dinilai kurang sensitif oleh 28 Okt 1977.";
+                data.sifat = "Mandiri, unik, dan tidak suka dikekang.";
+            }
+            return data;
+        }
+
+        function prosesBandingkan() {
+            const inputs = document.querySelectorAll('.input-row input[type="date"]');
+            
+            // Reset tabel
+            document.getElementById('tableHeader').innerHTML = `<th class="sticky-col">Karakteristik Kosmik</th>`;
+            document.getElementById('rowPeran').innerHTML = `<td class="sticky-col">Peran Utama dalam Grup</td>`;
+            document.getElementById('rowKecocokan').innerHTML = `<td class="sticky-col">Kecocokan Tertinggi (Chemistry)</td>`;
+            document.getElementById('rowKonflik').innerHTML = `<td class="sticky-col">Potensi Gesekan (Konflik)</td>`;
+            document.getElementById('rowSifat').innerHTML = `<td class="sticky-col">Sifat Alami Hubungan</td>`;
+
+            let count = 0;
+
+            inputs.forEach(input => {
+                if(!input.value) return;
+                count++;
+                
+                const dateObj = new Date(input.value);
+                const tgl = dateObj.getDate();
+                const bln = dateObj.getMonth();
+                const thn = dateObj.getFullYear();
+
+                const zodiak = hitungZodiak(tgl, bln + 1);
+                const shio = hitungShio(thn);
+                const weton = hitungWeton(dateObj);
+                const info = dapatkanDinamikaKosmik(zodiak);
+
+                // Tambah Header Kolom
+                const th = document.createElement('th');
+                th.innerHTML = `<strong>${tgl} ${BULAN_INDO[bln]} ${thn}</strong><br><span style="font-size:12px; font-weight:normal; color:#6b7280;">(${zodiak} / Ular Api / ${weton})</span>`;
+                document.getElementById('tableHeader').appendChild(th);
+
+                // Tambah Data Sel
+                const appendCell = (id, text) => {
+                    const td = document.createElement('td');
+                    td.innerHTML = text;
+                    document.getElementById(id).appendChild(td);
+                };
+
+                appendCell('rowPeran', info.peran);
+                appendCell('rowKecocokan', info.cocok);
+                appendCell('rowKonflik', info.konflik);
+                appendCell('rowSifat', info.sifat);
+            });
+
+            if(count > 0) {
+                document.getElementById('resultArea').style.display = 'block';
+            } else {
+                alert('Tolong pilih tanggal lahir dulu ya!');
+            }
+        }
+    </script>
+</body>
+</html>
